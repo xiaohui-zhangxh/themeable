@@ -4,24 +4,24 @@ module Themeable
       Themeable.add_theme(subclass)
       subclass.instance_eval <<-'RUBY'
         
-        @@name = nil
+        @name = nil
         def name
-          @@name || raise("Theme name is no defined")
+          @name || raise("Theme name is no defined")
         end
 
-        @@path = nil
+        @path = nil
         def path
-          @@path || raise("Theme path is no defined")
+          @path || raise("Theme path is no defined")
         end
 
         private
 
         def set_name(name)
-          @@name = name.to_sym
+          @name = name.to_sym
         end
 
         def set_path(path)
-          @@path = path
+          @path = path
         end
 
       RUBY
