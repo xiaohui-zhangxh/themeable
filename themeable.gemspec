@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.description = "Creating theme, and puting into your Rails app"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
-
+  s.files = Dir["{bin,lib,templates}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.executables   = ["themeable"]
   s.add_dependency "rails", ">= 4.0"
 
   s.add_development_dependency "sqlite3"
