@@ -23,6 +23,9 @@ module Themeable
       @destination_stack[0] = File.expand_path(app_name)
 
       gsub_file "#{app_name}.gemspec", /TODO[: ]*/, ''
+      gsub_file "#{app_name}.gemspec", %r{^ *s\.files *=.*} do
+        '  s.files = Dir["{lib,theme}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]'
+      end
 
       insert_into_file "#{app_name}.gemspec", after: %r{^ *s\.add_dependency .*} do
         "\n  s.add_dependency 'themeable'"
