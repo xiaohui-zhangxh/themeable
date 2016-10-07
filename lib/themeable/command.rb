@@ -31,15 +31,20 @@ module Themeable
         "\n  s.add_dependency 'themeable'"
       end
 
+      # generators
       template 'theme_views_generator.rb', "lib/generators/themeable/#{theme_name}/views_generator.rb"
       template 'theme_assets_generator.rb', "lib/generators/themeable/#{theme_name}/assets_generator.rb"
 
-      create_file "theme/assets/#{theme_name}/vendor/.gitkeep"
+      # assets and views
       create_file "theme/assets/#{theme_name}/application.css"
       create_file "theme/assets/#{theme_name}/application.js"
       create_file "theme/views/layouts/.gitkeep"
       template "view_application.html.erb", "theme/views/layouts/application.html.erb"
 
+      # vender files
+      create_file "vendor/#{theme_name}/.gitkeep"
+
+      # libs
       remove_file "lib/#{app_name}.rb"
       template 'theme_main.rb', "lib/#{app_name}.rb"
 
