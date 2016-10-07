@@ -6,38 +6,52 @@ You can create theme with this tool, make your Rails app choose theme dynamicall
 
     gem i themeable
 
-### Create my theme with command line
+### Create your theme with command line
 
-    themeable new famous
+    themeable new my_theme
 
-Now, directory `theme_famous` created with this tool.
+Now, directory `theme_my_theme` created with this tool.
 
-### Design my theme
+### Design your theme
 
 Start designing your theme in folder `theme`:
 
-    ├── theme
-    │   ├── assets
-    │   │   └── famous
-    │   │       ├── application.css
-    │   │       ├── application.js
-    │   │       └── vendor
-    │   └── views
-    │       └── layouts
-    │           └── application.html.erb
+    theme
+    ├── assets
+    │   └── my_theme
+    │       ├── application.css
+    │       └── application.js
+    └── views
+        └── layouts
+            └── application.html.erb
 
-### Use my theme in my Rails project
+If you have some vendor scripts and stylesheets, please put them in vendor/my_theme:
+
+    vendor
+    └── my_theme
+
+To require vendor files, do it as this:
+
+# in some.js
+
+    //= require my_theme/xxx/xxx
+
+# in some.css
+
+    *= require my_theme/xxx/xxx
+
+### Use your theme in your Rails project
 
 Add gem to Rails app:
 
-    gem 'theme_famous', path: 'path_of_theme_famous'
+    gem 'theme_my_theme', path: 'path_of_theme_my_theme'
     
 Use theme in controller:
 
 By default you need to remove `views/layouts/application.html.erb` from Rails app, make sure Rails can use theme's layout.
 
     class HomeController < ApplicationController
-      acts_as_themeable 'famous'
+      acts_as_themeable 'my_theme'
       def index
       end
     end
@@ -53,7 +67,7 @@ Or, you can make this controller use dynamic themes:
       
       def choose_theme
         case params[:theme]
-        when 'famous' then 'famous'
+        when 'my_theme' then 'my_theme'
         when 'classic' then 'classic'
         else; :none # :none means don't use theme
         end
