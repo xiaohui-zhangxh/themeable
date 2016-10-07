@@ -1,7 +1,9 @@
 require 'rails'
 module Themeable
   class Railtie < Rails::Railtie
+
     config.to_prepare do
+      config.app_generators.template_engine Themeable.template_engine if Themeable.template_engine
       ActionController::Base.send :include, Themeable::ActsAsThemeable
     end
     initializer :themeable do

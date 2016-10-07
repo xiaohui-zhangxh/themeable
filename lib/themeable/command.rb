@@ -17,7 +17,7 @@ module Themeable
       @app_name = "theme_#{name}"
       say('Initializing theme project...', :green)
       # say("\"rails plugin new #{app_name} -T\"")
-      system "rails plugin new #{app_name} -T"
+      system "rails plugin new #{app_name} -T -B"
 
       @destination_stack ||= []
       @destination_stack[0] = File.expand_path(app_name)
@@ -40,6 +40,15 @@ module Themeable
       create_file "theme/assets/#{theme_name}/application.js"
       create_file "theme/views/layouts/.gitkeep"
       template "view_application.html.erb", "theme/views/layouts/application.html.erb"
+
+      # scaffold templates
+      %w(default admin).each do |name|
+        create_file "theme/scaffold_templates/#{name}/index.html.erb"
+        create_file "theme/scaffold_templates/#{name}/edit.html.erb"
+        create_file "theme/scaffold_templates/#{name}/show.html.erb"
+        create_file "theme/scaffold_templates/#{name}/new.html.erb"
+        create_file "theme/scaffold_templates/#{name}/_form.html.erb"
+      end
 
       # vender files
       create_file "vendor/#{theme_name}/.gitkeep"
