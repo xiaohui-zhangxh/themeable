@@ -10,7 +10,7 @@ module Theme<%= theme_name.camelize %>
       def copy_view_files
         available_views.each do |view|
           filename = filename_with_extensions view
-          template "#{options[:theme_template]}/#{view}.html.erb", File.join('app', 'views', controller_file_path, filename)
+          template "#{options[:scaffold_template]}/#{view}.html.erb", File.join('app', 'views', controller_file_path, filename)
         end
       end
 
