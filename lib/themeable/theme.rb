@@ -1,7 +1,7 @@
 module Themeable
 
   # Theme's basic module, automatically define methods
-  #   - name
+  #   - theme_name
   #   - root_path
   #   - theme_path
   module Theme
@@ -12,18 +12,18 @@ module Themeable
       # set default values
       caller_file = caller.first
       if caller_file =~ %r{/theme_(.+?)/lib/theme_\1\.rb}
-        default_name = $1.to_sym
+        default_theme_name = $1.to_sym
         default_root = File.expand_path(File.join(caller_file, '../../'))
       end
 
       subclass.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
-        @name = #{default_name.inspect}
+        @theme_name = #{default_theme_name.inspect}
 
         # Theme name
         #
         # @return [Symbol]
-        def name
-          @name || raise("Theme name is no defined")
+        def theme_name
+          @theme_name || raise("Theme name is no defined")
         end
 
         @root_path = #{default_root.inspect}
@@ -46,10 +46,10 @@ module Themeable
 
         # Set theme name
         #
-        # @param [String] name
-        # @return [Symbol] symbolized name
-        def set_name(name)
-          @name = name.to_sym
+        # @param [String, Symbol] theme_name
+        # @return [Symbol] symbolized theme_name
+        def set_theme_name(theme_name)
+          @theme_name = theme_name.to_sym
         end
 
         # Set root path of theme project
