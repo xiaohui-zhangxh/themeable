@@ -11,7 +11,7 @@ module Themeable
 
       # set default values
       caller_file = caller.first
-      if caller_file =~ %r{/theme_(.+?)/lib/theme_\1\.rb}
+      if caller_file =~ %r{/lib/theme_([^/]*)\.rb}
         default_theme_name = $1.to_sym
         default_root = File.expand_path(File.join(caller_file, '../../'))
       end
@@ -23,7 +23,7 @@ module Themeable
         #
         # @return [Symbol]
         def theme_name
-          @theme_name || raise("Theme name is no defined")
+          @theme_name || raise("Theme name can't be resolved from path: #{__FILE__}")
         end
 
         @root_path = #{default_root.inspect}
@@ -40,32 +40,6 @@ module Themeable
         # @return [String] default is 'theme'
         def theme_path
           @theme_path || 'theme'
-        end
-
-        protected
-
-        # Set theme name
-        #
-        # @param [String, Symbol] theme_name
-        # @return [Symbol] symbolized theme_name
-        def set_theme_name(theme_name)
-          @theme_name = theme_name.to_sym
-        end
-
-        # Set root path of theme project
-        #
-        # @param [String] path
-        # @return [String]
-        def set_root_path(path)
-          @root_path = path
-        end
-
-        # Set theme's relative path, which path includes assets and views
-        #
-        # @param [String] path is a relative path where assets and views locate.
-        # @return [String]
-        def set_theme_path(path)
-          @theme_path = theme_path
         end
 
       RUBY

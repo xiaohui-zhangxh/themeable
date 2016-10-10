@@ -19,7 +19,9 @@ module Themeable
             view_paths = lookup_context.view_paths.to_a.map(&:to_path)
             theme = Themeable.theme(__themeable_theme_name)
             theme_view_path = File.join(theme.root_path, theme.theme_path, 'views')
-            lookup_context.view_paths = view_paths.insert(1, theme_view_path)
+            view_paths.insert(1, theme_view_path)
+            view_paths.insert(0, Rails.root.join("app/themes/#{theme_name}"))
+            lookup_context.view_paths = view_paths
           end
         RUBY
       end

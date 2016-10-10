@@ -7,8 +7,9 @@ module Themeable
     end
 
     initializer :themeable do
-      config.app_generators.template_engine Themeable.template_engine if Themeable.template_engine
+      config.app_generators.theme = Themeable.default_theme if Themeable.default_theme
       Themeable.themes.each do |theme|
+
         config.assets.paths << File.join(theme.root_path, theme.theme_path, 'assets')
         config.assets.paths << File.join(theme.root_path, 'vendor')
         config.assets.precompile << /\A#{Regexp.escape(theme.theme_name)}\/[^\/]+\.(js|css)\z/
@@ -17,7 +18,12 @@ module Themeable
     end
 
     generators do |app|
-      Rails::Generators::ScaffoldControllerGenerator.class_option :scaffold_template, default: 'default', desc: 'Which scaffold template of themeable plugin you want to use'
+      require 'themeable/generator_concern'
+      require 'rails/generators/erb/scaffold/scaffold_generator'
+      Erb::Generators::ScaffoldGenerator.send :include, Themeable::GeneratorConcern
+      Themeable.themes.each do |theme|
+        Erb::Generators::ScaffoldGenerator.source_paths << File.join(theme.root_path, theme.theme_path, 'scaffold_templates')
+      end
     end
 
   end

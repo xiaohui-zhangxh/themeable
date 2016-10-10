@@ -20,12 +20,12 @@ module Themeable
     themes.find{|t| t.theme_name == theme_name.to_sym } || raise("Theme #{theme_name} not found")
   end
 
-  def template_engine=(theme_name)
-    @template_engine = "theme_#{theme(theme_name).theme_name}"
+  def default_theme(theme_name)
+    @default_theme = "theme_#{theme(theme_name).theme_name}"
   end
 
-  def template_engine
-    @template_engine
+  def default_theme
+    @default_theme
   end
 
 end

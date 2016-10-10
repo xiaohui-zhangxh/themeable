@@ -92,12 +92,12 @@ Or, you can make this controller use dynamic themes:
       end
     end
 
-### Use `theme_my_theme` as template engine to scaffold controller views
+### Use `theme_my_theme` as theme to scaffold controller views
 
-    $ rails g scaffold_controller User --template-engine=theme_my_theme --scaffold-template=default
+    $ rails g scaffold_controller User --theme=my_theme
       
         create  app/controllers/users_controller.rb
-        invoke  theme_my_theme
+        invoke  erb
         create    app/views/users
         create    app/views/users/index.html.erb
         create    app/views/users/edit.html.erb

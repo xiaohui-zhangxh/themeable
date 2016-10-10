@@ -34,7 +34,6 @@ module Themeable
       # generators
       template 'generators/copy_views_generator.rb', "lib/generators/theme_#{theme_name}/copy_views_generator.rb"
       template 'generators/copy_assets_generator.rb', "lib/generators/theme_#{theme_name}/copy_assets_generator.rb"
-      template 'generators/scaffold_generator.rb', "lib/generators/theme_#{theme_name}/scaffold_generator.rb"
 
       # rakes
       template 'resolve_css_path.rake', "lib/tasks/resolve_css_path.rake"
@@ -53,11 +52,11 @@ Dir.glob('lib/tasks/*.rake').each { |r| load r}
 
       # scaffold templates
       %w(default admin).each do |name|
-        create_file "theme/scaffold_templates/#{name}/index.html.erb"
-        create_file "theme/scaffold_templates/#{name}/edit.html.erb"
-        create_file "theme/scaffold_templates/#{name}/show.html.erb"
-        create_file "theme/scaffold_templates/#{name}/new.html.erb"
-        create_file "theme/scaffold_templates/#{name}/_form.html.erb"
+        create_file "theme/scaffold_templates/#{theme_name}/#{name}/index.html.erb"
+        create_file "theme/scaffold_templates/#{theme_name}/#{name}/edit.html.erb"
+        create_file "theme/scaffold_templates/#{theme_name}/#{name}/show.html.erb"
+        create_file "theme/scaffold_templates/#{theme_name}/#{name}/new.html.erb"
+        create_file "theme/scaffold_templates/#{theme_name}/#{name}/_form.html.erb"
       end
 
       # vender files
