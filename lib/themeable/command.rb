@@ -35,6 +35,15 @@ module Themeable
       template 'theme_views_generator.rb', "lib/generators/themeable/#{theme_name}/views_generator.rb"
       template 'theme_assets_generator.rb', "lib/generators/themeable/#{theme_name}/assets_generator.rb"
 
+      # rakes
+      template 'resolve_css_path.rake', "lib/tasks/resolve_css_path.rake"
+      insert_into_file 'Rakefile', before: 'Bundler::GemHelper.install_tasks' do
+        <<-CODE
+require '#{app_name}'
+Dir.glob('lib/tasks/*.rake').each { |r| load r}
+        CODE
+      end
+    
       # assets and views
       create_file "theme/assets/#{theme_name}/application.css"
       create_file "theme/assets/#{theme_name}/application.js"
