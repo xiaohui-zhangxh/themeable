@@ -32,8 +32,9 @@ module Themeable
       end
 
       # generators
-      template 'theme_views_generator.rb', "lib/generators/themeable/#{theme_name}/views_generator.rb"
-      template 'theme_assets_generator.rb', "lib/generators/themeable/#{theme_name}/assets_generator.rb"
+      template 'generators/copy_views_generator.rb', "lib/generators/theme_#{theme_name}/copy_views_generator.rb"
+      template 'generators/copy_assets_generator.rb', "lib/generators/theme_#{theme_name}/copy_assets_generator.rb"
+      template 'generators/scaffold_generator.rb', "lib/generators/theme_#{theme_name}/scaffold_generator.rb"
 
       # rakes
       template 'resolve_css_path.rake', "lib/tasks/resolve_css_path.rake"
