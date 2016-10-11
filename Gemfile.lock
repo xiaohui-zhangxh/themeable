@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    themeable (1.0.5)
+    themeable (1.1.0)
       rails (>= 4.0)
 
 GEM
@@ -60,7 +60,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
-    minitest (5.9.0)
+    minitest (5.9.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -96,7 +96,7 @@ GEM
       activesupport (= 4.2.7.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (11.2.2)
+    rake (11.3.0)
     slop (3.6.0)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
