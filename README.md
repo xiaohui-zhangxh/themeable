@@ -39,7 +39,7 @@ Start designing your theme in folder `theme`:
             └── application.html.erb
 
 - theme/assets/my_theme: where your stylesheets and javascripts should put in
-- theme/scaffold_templates/xxx: your scaffold templates, generated default and admin by default, sure you can add more
+- theme/scaffold_templates/xxx: your scaffold templates, generated default and admin by default, of course you can add more if you want
 - theme/views: your views
 
 
@@ -114,6 +114,21 @@ Or, you can make this controller use dynamic themes:
         create    app/views/users/show.json.jbuilder
         create    app/views/users/_user.json.jbuilder
 
+### Choose scaffold template of theme
+
+There are two templates automatically generated: default and admin
+
+To choose default template, run:
+
+`rails g scaffold_controller User --theme=my_theme --theme-scaffold=default`
+
+To choose admin template, run:
+
+`rails g scaffold_controller User --theme=my_theme --theme-scaffold=admin`
+
+`--theme-scaffold=default` is default value if `--theme-scaffold` is not provided
+
+
 ### Customize `theme_my_theme` in your Rails project
 
 In your Rails project, if you feel `theme_my_theme` is not perfect, and want to make some changes to it only affect current Rails project, instead of all Rails projects which are using gem `theme_my_theme`, now you can do this:
@@ -125,35 +140,32 @@ In your Rails project, if you feel `theme_my_theme` is not perfect, and want to 
         create  app/assets/themes/my_theme/application.js
         
     $ rails g theme_my_theme:copy_views
-         exist  app/views
-     identical  app/views/layouts/.gitkeep
-      conflict  app/views/layouts/application.html.erb
-    Overwrite /test_theme/app/views/layouts/application.html.erb? (enter "h" for help) [Ynaqdh] a
-         force  app/views/layouts/application.html.erb
-        create  lib/templates/theme_my_theme/scaffold
-        create  lib/templates/theme_my_theme/scaffold/admin/_form.html.erb
-        create  lib/templates/theme_my_theme/scaffold/admin/edit.html.erb
-        create  lib/templates/theme_my_theme/scaffold/admin/index.html.erb
-        create  lib/templates/theme_my_theme/scaffold/admin/new.html.erb
-        create  lib/templates/theme_my_theme/scaffold/admin/show.html.erb
-        create  lib/templates/theme_my_theme/scaffold/default/_form.html.erb
-        create  lib/templates/theme_my_theme/scaffold/default/edit.html.erb
-        create  lib/templates/theme_my_theme/scaffold/default/index.html.erb
-        create  lib/templates/theme_my_theme/scaffold/default/new.html.erb
-        create  lib/templates/theme_my_theme/scaffold/default/show.html.erb
+        create  app/themes/my_theme
+        create  app/themes/my_theme/layouts/.gitkeep
+        create  app/themes/my_theme/layouts/application.html.erb
+        create  lib/templates/erb/scaffold/my_theme/admin/_form.html.erb
+        create  lib/templates/erb/scaffold/my_theme/admin/edit.html.erb
+        create  lib/templates/erb/scaffold/my_theme/admin/index.html.erb
+        create  lib/templates/erb/scaffold/my_theme/admin/new.html.erb
+        create  lib/templates/erb/scaffold/my_theme/admin/show.html.erb
+        create  lib/templates/erb/scaffold/my_theme/default/_form.html.erb
+        create  lib/templates/erb/scaffold/my_theme/default/edit.html.erb
+        create  lib/templates/erb/scaffold/my_theme/default/index.html.erb
+        create  lib/templates/erb/scaffold/my_theme/default/new.html.erb
+        create  lib/templates/erb/scaffold/my_theme/default/show.html.erb
 
-### Set `theme_my_them` as default template engine
+### Set `theme_my_them` as default theme
 
-If you feel each time to generate scaffold controller has to provide `--template-engine=theme_my_theme` is annoying, now you can set a default value like this:
+If you feel each time to generate scaffold controller has to provide `--theme=my_theme` is annoying, now you can set a default value like this:
 
-in config/application.rb, add `Themeable.template_engine = :my_theme`, note this is `:my_theme` but `:theme_my_theme`, this is different from the value of `--template-engine`
+in config/application.rb, add `Themeable.default_theme = :my_theme`
 
     module TestTheme
       class Application < Rails::Application
 
         ....
 
-        Themeable.template_engine = :my_theme
+        Themeable.default_theme = :my_theme
 
         ...
 
