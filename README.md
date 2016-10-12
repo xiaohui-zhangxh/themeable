@@ -158,14 +158,14 @@ In your Rails project, if you feel `theme_my_theme` is not perfect, and want to 
 
 If you feel each time to generate scaffold controller has to provide `--theme=my_theme` is annoying, now you can set a default value like this:
 
-in config/application.rb, add `Themeable.default_theme = :my_theme`
+in config/application.rb, add `config.generators.theme = :my_theme`
 
     module TestTheme
       class Application < Rails::Application
 
         ....
 
-        Themeable.default_theme = :my_theme
+        config.generators.theme = :my_theme
 
         ...
 

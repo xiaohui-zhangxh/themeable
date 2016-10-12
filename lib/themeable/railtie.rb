@@ -7,9 +7,7 @@ module Themeable
     end
 
     initializer :themeable do
-      config.app_generators.theme = Themeable.default_theme if Themeable.default_theme
       Themeable.themes.each do |theme|
-
         config.assets.paths << File.join(theme.root_path, theme.theme_path, 'assets')
         config.assets.paths << File.join(theme.root_path, 'vendor')
         config.assets.precompile << /\A#{Regexp.escape(theme.theme_name)}\/[^\/]+\.(js|css)\z/
