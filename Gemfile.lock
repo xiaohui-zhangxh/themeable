@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    themeable (1.1.0)
+    themeable (1.1.1)
       rails (>= 4.0)
 
 GEM
