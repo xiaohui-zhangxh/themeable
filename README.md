@@ -58,6 +58,14 @@ To require vendor files, do it as this:
 
     *= require my_theme/xxx/xxx
 
+
+
+To resolve vendor files relative asset path, you should do like this:
+
+    rake resolve:css_path
+
+Some vendor files have relative urls in the CSS files for imports, images, etc. Rails prefers using helper methods for linking to assets within CSS. Relative paths can cause issues when assets are precompiled for production.
+
 ### Use your theme in your Rails project
 
 Add gem to Rails app:
@@ -142,7 +150,7 @@ In your Rails project, if you feel `theme_my_theme` is not perfect, and want to 
         create  lib/templates/theme_my_theme/scaffold/default/new.html.erb
         create  lib/templates/theme_my_theme/scaffold/default/show.html.erb
 
-### Set `theme_my_them` as default template engine
+### Set `theme_my_theme` as default template engine
 
 If you feel each time to generate scaffold controller has to provide `--template-engine=theme_my_theme` is annoying, now you can set a default value like this:
 
@@ -159,6 +167,7 @@ in config/application.rb, add `Themeable.template_engine = :my_theme`, note this
 
       end
     end
+
 
 
 

@@ -38,7 +38,7 @@ module Themeable
 
       # rakes
       template 'resolve_css_path.rake', "lib/tasks/resolve_css_path.rake"
-      insert_into_file 'Rakefile', before: 'Bundler::GemHelper.install_tasks' do
+      append_to_file 'Rakefile' do
         <<-CODE
 require '#{app_name}'
 Dir.glob('lib/tasks/*.rake').each { |r| load r}
