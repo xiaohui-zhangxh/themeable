@@ -15,7 +15,7 @@ module Themeable
       super(themed_file)
     rescue Thor::Error => e
       if e.message =~ /^Could not find /
-        say "Can't find themed file #{themed_file}, use default template", :yellow
+        say "Can't find themed file #{themed_file}, use default template", :yellow unless @behavior == :revoke
         return super(file)
       else
         raise
