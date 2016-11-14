@@ -5,7 +5,7 @@ module Themeable
     class_methods do
       def acts_as_themeable(theme_name)
         instance_eval do
-          before_filter :insert_theme_view_path
+          before_action :insert_theme_view_path
         end
 
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
