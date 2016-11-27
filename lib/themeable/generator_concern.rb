@@ -7,11 +7,32 @@ module Themeable
       end
     end
 
+    def resolve_themeable_value(key)
+      return options[key] if options[key].present?
+      if theme_scaffold_mapping.size > 0
+        folders = name.split('/')
+        folders.pop
+        loop do
+          break if folders.size == 0
+          path = folders.join('/')
+          v = theme_scaffold_mapping.fetch(path.intern) { theme_scaffold_mapping.fetch(path.to_s, nil) }
+          vv = v && (v[key.intern] || v[key.to_s])
+          return vv if vv.present?
+          folders.pop
+        end
+      end
+    end
+
+    def theme_scaffold_mapping
+      Rails.application.config.generators.theme_scaffold_mapping
+    end
+
     # Support theme and template
     def find_in_source_paths(file)
-      theme_scaffold = options[:theme_scaffold]
-      theme_scaffold ||= 'default' if options[:theme].present?
-      themed_file = [options[:theme], theme_scaffold, file].compact.join('/')
+      theme = resolve_themeable_value(:theme)
+      theme_scaffold = resolve_themeable_value(:theme_scaffold)
+      theme_scaffold ||= 'default' if theme
+      themed_file = [theme, theme_scaffold, file].compact.join('/')
       super(themed_file)
     rescue Thor::Error => e
       if e.message =~ /^Could not find /

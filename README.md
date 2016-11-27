@@ -71,7 +71,7 @@ Some vendor files have relative urls in the CSS files for imports, images, etc. 
 Add gem to Rails app:
 
     gem 'theme_my_theme', path: 'path_of_theme_my_theme'
-    
+
 Use theme in controller:
 
 By default you need to remove `views/layouts/application.html.erb` from Rails app, make sure Rails can use theme's layout.
@@ -88,9 +88,9 @@ Or, you can make this controller use dynamic themes:
       acts_as_themeable :choose_theme
       def index
       end
-      
+
       private
-      
+
       def choose_theme
         case params[:theme]
         when 'my_theme' then 'my_theme'
@@ -103,7 +103,7 @@ Or, you can make this controller use dynamic themes:
 ### Use `theme_my_theme` as theme to scaffold controller views
 
     $ rails g scaffold_controller User --theme=my_theme
-      
+
         create  app/controllers/users_controller.rb
         invoke  erb
         create    app/views/users
@@ -142,11 +142,11 @@ To choose admin template, run:
 In your Rails project, if you feel `theme_my_theme` is not perfect, and want to make some changes to it only affect current Rails project, instead of all Rails projects which are using gem `theme_my_theme`, now you can do this:
 
     $ rails g theme_my_theme:copy_assets
-    
+
          exist  app/assets/themes
         create  app/assets/themes/my_theme/application.css
         create  app/assets/themes/my_theme/application.js
-        
+
     $ rails g theme_my_theme:copy_views
         create  app/themes/my_theme
         create  app/themes/my_theme/layouts/.gitkeep
@@ -180,8 +180,30 @@ in config/application.rb, add `config.generators.theme = :my_theme`
       end
     end
 
+### Automatically choose theme scaffold template
 
+Also, you can use a mapping to set `--theme` and `--theme-scaffold` automatically according to module name
 
+module TestTheme
+  class Application < Rails::Application
 
-    
+    ....
 
+    config.generators.theme_scaffold_mapping = {
+        # Admin::UsersController uses scaffold template from lib/templates/erb/scaffold/my_theme/admin
+        admin: { theme: 'my_theme', theme_scaffold: 'admin' },
+
+        # Agent::ProductsController uses scaffold template from lib/templates/erb/scaffold/my_theme/agent
+        agent: { theme: 'my_theme', theme_scaffold: 'agent' },
+
+        # Member::ProfileController uses scaffold template from lib/templates/erb/scaffold/other_theme/admin
+        member: { theme: 'other_theme', theme_scaffold: 'admin' },
+
+        # HomeController uses scaffold template from lib/templates/erb/scaffold/other_theme/default
+        default: { theme: 'other_theme', theme_scaffold: 'default' }
+    }
+
+    ...
+
+  end
+end
